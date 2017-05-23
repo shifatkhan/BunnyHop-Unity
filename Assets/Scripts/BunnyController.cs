@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BunnyController : MonoBehaviour {
 
@@ -21,11 +22,26 @@ public class BunnyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Spacebar clicked
 		if(Input.GetButtonDown("Jump"))
         {
+            // Modify y velocity (upwards)
             bunnyRigidBody.AddForce(transform.up * bunnyJumpForce);
         }
 
+        // Update property vVelocity accordingly.
         bunnyAnimator.SetFloat("vVelocity", bunnyRigidBody.velocity.y);
 	}
+
+    void OnCollisionEnter2D(Collision2D collision) {
+
+        // Check if the Bunny's collision detection was triggered by an Enemy.
+        if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            //Application.LoadLevel(Application.loadedLevel); <--- DEPRECATED
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
 }
