@@ -262,8 +262,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 4767849349786044, guid: 83a2a7b21e4acd14e8c81dad4eebf8af,
     type: 2}
-  spawnRate: 1
-  randomDelay: 3
+  spawnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.007534285
+      value: 1.993238
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.08824
+      value: 1.9487514
+      inSlope: -0.05125305
+      outSlope: -0.05125305
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.16252619
+      value: 1.3739396
+      inSlope: -4.1782856
+      outSlope: -4.1782856
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.21289062
+      value: 1.8688474
+      inSlope: 0.040002298
+      outSlope: 0.040002298
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.30075973
+      value: 1.2533764
+      inSlope: 0.09539674
+      outSlope: 0.09539674
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.36028072
+      value: 1.9867659
+      inSlope: -2.4104118
+      outSlope: -2.4104118
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5560717
+      value: 1.4963511
+      inSlope: -1.040101
+      outSlope: -1.040101
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.58156633
+      value: 1.9450916
+      inSlope: -0.99897385
+      outSlope: -0.99897385
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7393284
+      value: 1.6119283
+      inSlope: -2.141595
+      outSlope: -2.141595
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.85347825
+      value: 1.7169532
+      inSlope: -2.104044
+      outSlope: -2.104044
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9821563
+      value: 1.2734885
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  curveLengthInSeconds: 30
+  jitter: 0.25
 --- !u!4 &508421096 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4495506807886198, guid: 98f23fc393d9aad40acb327f498a5f07,
@@ -838,6 +910,15 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114395644234560612, guid: a7e15b87dfe31454b9f17700ebcaa3da,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1755481345}
+    - target: {fileID: 1427586409378160, guid: a7e15b87dfe31454b9f17700ebcaa3da, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7e15b87dfe31454b9f17700ebcaa3da, type: 2}
   m_IsPrefabParent: 0
@@ -932,10 +1013,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 800, y: 480}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1218,14 +1299,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1923790544}
   m_Father: {fileID: 1371449745}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -99, y: -31}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -54, y: -31}
+  m_SizeDelta: {x: 70, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1755481345
 MonoBehaviour:
@@ -1248,9 +1330,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_FontSize: 24
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 2
@@ -1259,7 +1341,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 999.9
 --- !u!222 &1755481346
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1358,6 +1440,80 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98f23fc393d9aad40acb327f498a5f07, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1923790543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1923790544}
+  - component: {fileID: 1923790546}
+  - component: {fileID: 1923790545}
+  m_Layer: 5
+  m_Name: lblScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1923790544
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1923790543}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1755481344}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -80, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1923790545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1923790543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Score: '
+--- !u!222 &1923790546
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1923790543}
 --- !u!4 &1998376738 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4495506807886198, guid: 98f23fc393d9aad40acb327f498a5f07,
