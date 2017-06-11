@@ -24,7 +24,7 @@ public class BunnyController : MonoBehaviour {
 	void Update () {
 
         // Spacebar clicked
-		if(Input.GetButtonDown("Jump"))
+		if((Input.GetButtonDown("Jump") || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) && bunnyRigidBody.position.y < -2.5)
         {
             // Modify y velocity (upwards)
             bunnyRigidBody.AddForce(transform.up * bunnyJumpForce);
