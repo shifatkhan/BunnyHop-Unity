@@ -21,6 +21,13 @@ public class BunnyController : MonoBehaviour {
 	public Text scoreText;
 	private float startTime;
 
+	// Sounds
+	public AudioSource jumpSfx;
+	public AudioSource deathSfx;
+	public AudioSource runningSfx;
+	public AudioSource landingSfx;
+	private bool running;
+
 	/// <summary>
 	/// Use this for initialization
 	/// </summary>
@@ -35,6 +42,8 @@ public class BunnyController : MonoBehaviour {
         bunnyAnimator = GetComponent<Animator>();
 
 		startTime = Time.time;
+
+		running = true;
 	}// End Start
 	
 	/// <summary>
@@ -55,6 +64,10 @@ public class BunnyController : MonoBehaviour {
 				// Modify y velocity (upwards)
 				bunnyRigidBody.AddForce (transform.up * bunnyJumpForce);
 				jumpsLeft--;
+
+				running = false;
+				jumpSfx.Play();
+				runningSfx.Stop();
 			}
 
 			// Update property vVelocity accordingly.
@@ -96,11 +109,24 @@ public class BunnyController : MonoBehaviour {
 			// Modify y velocity (upwards)
 			bunnyRigidBody.AddForce (transform.up * bunnyJumpForce);
 
+			// Remove collider to allow bunny to fall through ground
 			bunnyCollider.enabled = false;
+
+			deathSfx.Play ();
+			runningSfx.Stop ();
 		}
-		// Check if the Bunny's collision detection was triggered by an Enemy.
+		// Check if the Bunny's collision detection was triggered by the ground.
 		else if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
 			jumpsLeft = MAX_JUMPS;
+
+			if (!landingSfx.isPlaying && !running) {
+				landingSfx.Play ();
+				running = true;
+			}
+
+			if (!runningSfx.isPlaying) {
+				runningSfx.Play();
+			}
 		}
 
     }// End OnCollisionEnter2D
