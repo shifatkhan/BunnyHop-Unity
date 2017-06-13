@@ -15,11 +15,13 @@ public class BunnyController : MonoBehaviour {
     public float bunnyJumpForce = 200f;
 	private float bunnyHurtTime = -1f;
 	private const int MAX_JUMPS = 1; // 2 for double jump
-	private int jumpsLeft = MAX_JUMPS; 
+	private int jumpsLeft; 
 
 	// UI
 	public Text scoreText;
 	private float startTime;
+	public Text highscoreText;
+	public Button btnRetry;
 
 	// Sounds
 	public AudioSource jumpSfx;
@@ -32,6 +34,8 @@ public class BunnyController : MonoBehaviour {
 	/// Use this for initialization
 	/// </summary>
 	void Start () {
+		jumpsLeft = MAX_JUMPS; 
+
         // Get reference for RigitBody2D
         bunnyRigidBody = GetComponent<Rigidbody2D>();
 
@@ -44,26 +48,35 @@ public class BunnyController : MonoBehaviour {
 		startTime = Time.time;
 
 		running = true;
+
+		btnRetry.enabled = false;
+		btnRetry.gameObject.SetActive (false);
+
+		highscoreText.gameObject.SetActive(false);
 	}// End Start
 	
 	/// <summary>
 	/// Update is called once per frame
 	/// </summary>
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			SceneManager.LoadScene("Title");
+		}
 
 		if (bunnyHurtTime == -1) {
 			// Spacebar clicked, on touch
 			if ((Input.GetButtonDown ("Jump") || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && jumpsLeft > 0) {
 
+				jumpsLeft--;
+
 				// Cancel downwards velocity if falling for second jump
-				if(MAX_JUMPS > 1 && bunnyRigidBody.velocity.y < 0){
+				if(jumpsLeft > 1 && bunnyRigidBody.velocity.y < 0){
 					
 					bunnyRigidBody.velocity = Vector2.zero;
 				}
 
 				// Modify y velocity (upwards)
 				bunnyRigidBody.AddForce (transform.up * bunnyJumpForce);
-				jumpsLeft--;
 
 				running = false;
 				jumpSfx.Play();
@@ -78,7 +91,8 @@ public class BunnyController : MonoBehaviour {
 		else {
 			// Reset level 2 seconds after getting hurt.
 			if (Time.time > bunnyHurtTime + 2) {
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+				btnRetry.enabled = true;
+				btnRetry.gameObject.SetActive (true);
 			}
 		}
 	}// End Update
@@ -114,6 +128,15 @@ public class BunnyController : MonoBehaviour {
 
 			deathSfx.Play ();
 			runningSfx.Stop ();
+
+			float currHighscore = PlayerPrefs.GetFloat ("Highscore", 0);
+			float currScore = Time.time - startTime;
+
+			if(currScore > currHighscore) {
+				PlayerPrefs.SetFloat ("Highscore", currScore);
+				highscoreText.text = currScore.ToString ("0.0");
+				highscoreText.gameObject.SetActive(true);
+			}
 		}
 		// Check if the Bunny's collision detection was triggered by the ground.
 		else if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
@@ -130,5 +153,9 @@ public class BunnyController : MonoBehaviour {
 		}
 
     }// End OnCollisionEnter2D
+
+	public void OnRetry() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
 
 }// End class

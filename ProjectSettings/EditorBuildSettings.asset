@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: e8cb9be4c75a4d44b97a8182183112d2
+  - enabled: 1
+    path: Assets/Scenes/BunnyHop.unity
+    guid: f5360b63c64e6d743ae846d9019cd5db
